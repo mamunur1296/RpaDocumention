@@ -1,0 +1,19 @@
+[
+  {
+    "title": "Chapter 1",
+    "topics": [
+      {
+        "id": 1,
+        "queDetails": "all quessen and ans lorem if some 1",
+        "title": "Topic 1",
+        "questions": ["Question 1", "Question 2"]
+      },
+      {
+        "id": 2,
+        "queDetails": "all quessen and ans lorem if some 2 ",
+        "title": "Topic 2",
+        "questions": ["Question 3", "Question 4"]
+      }
+    ]
+  }
+]

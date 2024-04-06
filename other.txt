@@ -1,0 +1,174 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+const VarticalNavChild = () => {
+  const [isOpenChapter1, setIsOpenChapter1] = useState(false);
+  const [isOpenChapter2, setIsOpenChapter2] = useState(false);
+  const dropdownRefChapter1 = useRef(null);
+  const dropdownRefChapter2 = useRef(null);
+
+  const toggleDropdownChapter1 = () => {
+    setIsOpenChapter1((prevState) => !prevState);
+  };
+
+  const toggleDropdownChapter2 = () => {
+    setIsOpenChapter2((prevState) => !prevState);
+  };
+
+  const handleOutsideClick = (event) => {
+    if (
+      (dropdownRefChapter1.current && !dropdownRefChapter1.current.contains(event.target)) &&
+      (dropdownRefChapter2.current && !dropdownRefChapter2.current.contains(event.target))
+    ) {
+      setIsOpenChapter1(false);
+      setIsOpenChapter2(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
+  return (
+    <>
+      <div ref={dropdownRefChapter1}>
+        <button
+          onClick={toggleDropdownChapter1}
+          className="flex items-center gap-2"
+        >
+          Chapter 1
+        </button>
+        {isOpenChapter1 && (
+          <ul>
+            <li>
+              <Link to={`/`} className="block ps-6 text-sm">
+                Topic 1 
+              </Link>
+            </li>
+            <li>
+              <Link to={`/`} className="block ps-6 text-sm">
+                Topic 2 
+              </Link>
+            </li>
+          </ul>
+        )}
+      </div>
+      <div ref={dropdownRefChapter2}>
+        <button
+          onClick={toggleDropdownChapter2}
+          className="flex items-center gap-2"
+        >
+          Chapter 2
+        </button>
+        {isOpenChapter2 && (
+          <ul>
+          <li>
+            <Link to={`/`} className="block ps-6 text-sm">
+              Topic 1 
+            </Link>
+          </li>
+          <li>
+            <Link to={`/`} className="block ps-6 text-sm">
+              Topic 2 
+            </Link>
+          </li>
+        </ul>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default VarticalNavChild;
+==========================================
+
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+const VarticalNavChild = () => {
+  const [isOpenChapter1, setIsOpenChapter1] = useState(false);
+  const [isOpenChapter2, setIsOpenChapter2] = useState(false);
+  const dropdownRefChapter1 = useRef(null);
+  const dropdownRefChapter2 = useRef(null);
+
+  const toggleDropdownChapter1 = () => {
+    setIsOpenChapter1((prevState) => !prevState);
+    setIsOpenChapter2(false); // Close dropdown of Chapter 2 when Chapter 1 is clicked
+  };
+
+  const toggleDropdownChapter2 = () => {
+    setIsOpenChapter2((prevState) => !prevState);
+    setIsOpenChapter1(false); // Close dropdown of Chapter 1 when Chapter 2 is clicked
+  };
+
+  const handleOutsideClick = (event) => {
+    if (
+      (dropdownRefChapter1.current && !dropdownRefChapter1.current.contains(event.target)) &&
+      (dropdownRefChapter2.current && !dropdownRefChapter2.current.contains(event.target))
+    ) {
+      setIsOpenChapter1(false);
+      setIsOpenChapter2(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
+  return (
+    <>
+      <div ref={dropdownRefChapter1}>
+        <button
+          onClick={toggleDropdownChapter1}
+          className="flex items-center gap-2"
+        >
+          Chapter 1
+        </button>
+        {isOpenChapter1 && (
+          <ul>
+            <li>
+              <Link to={`/`} className="block ps-6 text-sm">
+                Topic 1
+              </Link>
+            </li>
+            <li>
+              <Link to={`/`} className="block ps-6 text-sm">
+                Topic 2
+              </Link>
+            </li>
+          </ul>
+        )}
+      </div>
+      <div ref={dropdownRefChapter2}>
+        <button
+          onClick={toggleDropdownChapter2}
+          className="flex items-center gap-2"
+        >
+          Chapter 2
+        </button>
+        {isOpenChapter2 && (
+          <ul>
+            <li>
+              <Link to={`/`} className="block ps-6 text-sm">
+                Topic 1
+              </Link>
+            </li>
+            <li>
+              <Link to={`/`} className="block ps-6 text-sm">
+                Topic 2
+              </Link>
+            </li>
+          </ul>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default VarticalNavChild;
