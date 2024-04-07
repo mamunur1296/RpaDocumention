@@ -7,7 +7,7 @@ export default function Navbar() {
         <div className="flex-shrink-0">
           <a href="/PostChapter" className="text-white font-bold text-xl">Post Chapter</a>
           <a href="/PostTopic" className="text-white font-bold text-xl ml-4">Post Topic</a>
-          <a href="/PostQuestion" className="text-white font-bold text-xl ml-4">Post quessin</a>
+          <a href="/PostQuestion" className="text-white font-bold text-xl ml-4">Post Questions</a>
         </div>
         <div className="flex-grow md:flex md:items-center md:w-auto">
           <div className="md:flex-grow">
