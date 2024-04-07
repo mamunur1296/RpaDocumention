@@ -10,7 +10,7 @@ const Main = () => {
       {/* Content Wrapper */}
       <div className="flex-grow flex">
         {/* Vertical Navigation */}
-        <div className="w-1/6 bg-gray-200">
+        <div className="w-1/4 bg-gray-200">
           <VarticalNavChild />
         </div>
         {/* Main Content */}

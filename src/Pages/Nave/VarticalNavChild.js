@@ -1,23 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const VerticalNavChild = () => {
   const [chapters, setChapters] = useState([]);
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
   const [openTopicIndex, setOpenTopicIndex] = useState(null);
-  const dropdownRefs = useRef([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/data.json'); // Assuming data.json is in the public folder
+        const response = await fetch('https://localhost:7128/api/Chapter/getAllChapter');
         const data = await response.json();
         setChapters(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-    console.log(chapters);
     fetchData();
   }, []);
 
@@ -31,43 +29,59 @@ const VerticalNavChild = () => {
   };
 
   return (
-    <>
-      {chapters?.map((chapter, index) => (
-        <div key={index} ref={(el) => (dropdownRefs.current[index] = el)}>
-          <button
-            onClick={() => toggleDropdown(index)}
-            className="flex items-center gap-2 bg-gray-200 p-2 rounded-md"
-          >
-            {chapter.title}
-          </button>
-          {openDropdownIndex === index && (
-            <ul className="ml-4">
-              {chapter.topics?.map((topic, topicIndex) => (
-                <li key={topicIndex}>
-                  <button
-                    onClick={() => toggleTopicDropdown(topicIndex)}
-                    className="block ps-6 text-sm"
-                  >
-                    {topic.title}
-                  </button>
-                  {openTopicIndex === topicIndex && (
-                    <ul className="ml-4">
-                      {topic.questions.map((question, questionIndex) => (
-                        <li key={questionIndex}>
-                          <Link to={`ans/${topic.id}`} className="block ps-6 text-sm">
-                            {question}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ))}
-    </>
+    <nav className="w-full h-full bg-gray-900  text-white">
+      <ul className="p-1">
+        {chapters?.map((chapter, index) => (
+          <li key={index} className="mb-2">
+            <button
+              onClick={() => toggleDropdown(index)}
+              className="w-full flex items-center justify-between bg-gray-800 px-1 py-1 rounded-md transition duration-300 hover:bg-gray-700 focus:outline-none "
+            >
+              <span className="text-sm/[4px]">{chapter.title}</span>
+              <svg
+                className={`w-4 h-4 ${openDropdownIndex === index ? 'transform rotate-90' : ''}`}
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M6.293 5.293a1 1 0 011.414 0L10 8.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+            {openDropdownIndex === index && (
+              <ul className="ml-4">
+                {chapter.tipicList?.map((topic, topicIndex) => (
+                  <li key={topicIndex} className="my-1">
+                    <button
+                      onClick={() => toggleTopicDropdown(topicIndex)}
+                      className="block px-1 py-2 bg-gray-700  rounded-md transition duration-300 hover:bg-gray-600 focus:outline-none text-sm/[8px]"
+                    >
+                      {topic.title}
+                    </button>
+                    {openTopicIndex === topicIndex && (
+                      <ul className="ml-4">
+                        {topic.questionsList.map((question, questionIndex) => (
+                          <li key={questionIndex} className="mb-1">
+                            <Link
+                              to={`ans/${question.id}`}
+                              className="block mt-1 px-1  bg-gray-600 rounded-md transition duration-300 hover:bg-gray-500 focus:outline-none text-sm"
+                            >
+                              {question.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 };
 

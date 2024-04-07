@@ -5,8 +5,9 @@ export default function Navbar() {
     <nav className="bg-gray-800 p-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex-shrink-0">
-          <a href="/" className="text-white font-bold text-xl">Post Topic 1</a>
-          <a href="/" className="text-white font-bold text-xl ml-4">Post Topic 2</a>
+          <a href="/PostChapter" className="text-white font-bold text-xl">Post Chapter</a>
+          <a href="/PostTopic" className="text-white font-bold text-xl ml-4">Post Topic</a>
+          <a href="/PostQuestion" className="text-white font-bold text-xl ml-4">Post quessin</a>
         </div>
         <div className="flex-grow md:flex md:items-center md:w-auto">
           <div className="md:flex-grow">
